@@ -30,4 +30,9 @@ public class Fakultas {
     public String getNamaFakultas() {
         return namaFakultas;
     }
+    
+    @Override
+    public String toString(){
+        return namaFakultas;
+    }
 }

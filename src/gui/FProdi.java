@@ -7,6 +7,8 @@ package gui;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
 import models.Connection;
 import models.Fakultas;
 import models.Prodi;
@@ -24,6 +26,8 @@ public class FProdi extends javax.swing.JFrame {
      */
     public FProdi() {
         initComponents();
+        showComboBox();
+        showTableData();
     }
 
     /**
@@ -39,11 +43,14 @@ public class FProdi extends javax.swing.JFrame {
         txtProdi = new javax.swing.JTextField();
         dataFakultas = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSimpan = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProdi = new javax.swing.JTable();
+        txtId = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnKosongkan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,18 +60,28 @@ public class FProdi extends javax.swing.JFrame {
 
         jLabel2.setText("Fakultas");
 
-        jButton1.setText("Simpan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSimpanActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Edit");
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Hapus");
+        btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProdi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -75,7 +92,22 @@ public class FProdi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblProdi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProdiMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblProdi);
+
+        jLabel3.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
+        jLabel3.setText("PROGRAM STUDI");
+
+        btnKosongkan.setText("Kosongkan");
+        btnKosongkan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKosongkanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,26 +117,33 @@ public class FProdi extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dataFakultas, 0, 360, Short.MAX_VALUE)
-                            .addComponent(txtProdi))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnSimpan)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnEdit)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnHapus)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnKosongkan))
+                                .addComponent(dataFakultas, 0, 360, Short.MAX_VALUE)
+                                .addComponent(txtProdi)))))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dataFakultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -114,9 +153,11 @@ public class FProdi extends javax.swing.JFrame {
                     .addComponent(txtProdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnSimpan)
+                    .addComponent(btnEdit)
+                    .addComponent(btnHapus)
+                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnKosongkan))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -125,22 +166,89 @@ public class FProdi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        Fakultas f = (Fakultas)dataFakultas.getSelectedItem();
+        String prodi = txtProdi.getText();
+        
+        Connection.koneksi();
+        String sql = "insert into prodi ( nama_prodi, id_fakultas) values (?,?)";
+        
+        try{
+            PreparedStatement ps = Connection.conn.prepareStatement(sql);
+            ps.setString(1, prodi);
+            ps.setInt(2, f.getId_fakultas());
+            
+            ps.execute();
+            Connection.stmt.close();
+            showTableData();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        Fakultas f = (Fakultas)dataFakultas.getSelectedItem();
+        String prodi = txtProdi.getText();
+        int id = Integer.parseInt(txtId.getText());
+        
+        Connection.koneksi();
+        String sql = "update prodi set nama_prodi = ?, id_fakultas=? where id_prodi = ?";
+        
+        try{
+            PreparedStatement ps = Connection.conn.prepareStatement(sql);
+            ps.setString(1, prodi);
+            ps.setInt(2, f.getId_fakultas());
+            ps.setInt(3, id);
+            
+            ps.execute();
+            Connection.stmt.close();
+            showTableData();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void tblProdiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdiMouseClicked
+        // TODO add your handling code here:
+        getData();
+    }//GEN-LAST:event_tblProdiMouseClicked
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(txtId.getText());
+        
+        Connection.koneksi();
+        String sql = "delete prodi where id = ?";
+        try{
+            PreparedStatement ps = Connection.conn.prepareStatement(sql);
+            
+            ps.execute();
+            Connection.stmt.close();
+            showTableData();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnKosongkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKosongkanActionPerformed
+        // TODO add your handling code here:
+        txtProdi.setText("");
+    }//GEN-LAST:event_btnKosongkanActionPerformed
 
      public void showComboBox()
     {
         
         Connection.koneksi();
-        String sql = "SELECT * FROM penulis";
+        String sql = "SELECT * FROM fakultas";
         try
         {
            fak.clear();
            Connection.rs = Connection.stmt.executeQuery(sql); 
            while(Connection.rs.next())
            {
-               fak.add(new Fakultas(Connection.rs.getInt("id"), Connection.rs.getString("nama")));
+               fak.add(new Fakultas(Connection.rs.getInt("id_fakultas"), Connection.rs.getString("nama_fakultas")));
            }
            dataFakultas.setModel(new DefaultComboBoxModel(fak.toArray()));
         }
@@ -148,6 +256,80 @@ public class FProdi extends javax.swing.JFrame {
         {
             e.printStackTrace();
         }
+    }
+     
+     public void showTableData()
+    {
+        Connection.koneksi();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No");
+        model.addColumn("nama_prodi");
+        model.addColumn("fakultas");
+        String sql = "SELECT * FROM fakultas a JOIN prodi b ON (a.id_fakultas = b.id_fakultas)";
+        try {
+           prodi.clear();
+           Connection.rs = Connection.stmt.executeQuery(sql); 
+           while(Connection.rs.next())
+           {
+               prodi.add(new Prodi(Connection.rs.getInt("id_prodi"), Connection.rs.getString("nama_prodi"), 
+                       Connection.rs.getInt("id_fakultas")));
+           }
+           
+           int i = 1;
+           for(Prodi p: prodi)
+           {
+               int idProdi = p.getId_fakultas();
+               String namaFakultas = getDataFakultas(fak, idProdi);
+               model.addRow(new Object[] {
+                   i,p.getNama_prodi(), namaFakultas
+               });
+               i++;
+           }
+           Connection.rs.close();
+           tblProdi.setModel(model);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+     
+     public String getDataFakultas(List<Fakultas> p, int id)
+    {
+        for(Fakultas f: p)
+        {
+            if(f.getId_fakultas() == id)
+            {
+                return f.getNamaFakultas();
+            }
+        }
+        
+        return "-";
+    }
+     
+     public int getFakultasIndex(List<Fakultas> fak, int id)
+    {
+        int targetIndex = -1;
+        
+        for(int i = 0; i < fak.size(); i++)
+        {
+            if(fak.get(i).getId_fakultas() == id)
+            {
+                targetIndex = i;
+                break;
+            }
+        }
+        
+       return targetIndex;
+    }
+     
+     public void getData()
+    {
+        int baris = tblProdi.getSelectedRow();
+        txtId.setVisible(false);
+        txtId.setText(Integer.toString(prodi.get(baris).getId_prodi()));
+        dataFakultas.setSelectedIndex(getFakultasIndex(fak, prodi.get(baris).getId_fakultas()));
+        txtProdi.setText(prodi.get(baris).getNama_prodi());
     }
     
     /**
@@ -187,14 +369,17 @@ public class FProdi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnKosongkan;
+    private javax.swing.JButton btnSimpan;
     private javax.swing.JComboBox<String> dataFakultas;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblProdi;
+    private javax.swing.JLabel txtId;
     private javax.swing.JTextField txtProdi;
     // End of variables declaration//GEN-END:variables
 }

@@ -33,6 +33,10 @@ public class Prodi {
         return nama_prodi;
     }
 
+    @Override
+    public String toString(){
+        return nama_prodi;
+    }
     /**
      * @return the id_fakultas
      */

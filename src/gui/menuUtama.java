@@ -719,10 +719,21 @@ public class menuUtama extends javax.swing.JFrame {
 
     private void btnKosongkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKosongkanActionPerformed
         // TODO add your handling code here:
-        txtNama.setText("");
-        txtNisn.setText("");
+        kosongkan();
         
     }//GEN-LAST:event_btnKosongkanActionPerformed
+    
+    private void kosongkan(){
+        txtNama.setText("");
+        txtNisn.setText("");
+        rdbLaki.setSelected(false);
+        rdbPr.setSelected(false);
+        jkalender.setDate(null);
+        txtKota.setText("");
+        txtAlamat.setText("");
+        cmbProdi.setEnabled(false);
+        showComboBoxFak();
+    }
     
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
@@ -740,9 +751,12 @@ public class menuUtama extends javax.swing.JFrame {
             PreparedStatement ps = Connection.conn.prepareStatement(sql);
             ps.setString(4, nama);
             ps.setInt(3, nisn);
-            if(rdbLaki.isSelected() == true)jkel="Laki-laki";
-                else
-                    if(rdbPr.isSelected()== true)jkel="Perempuan";
+            if(rdbLaki.isSelected() == true){
+                jkel="Laki-laki";
+            } 
+            else{
+                if(rdbPr.isSelected()== true)jkel="Perempuan";
+            }
             ps.setString(5, jkel);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String tanggal = sdf.format(jkalender.getDate());

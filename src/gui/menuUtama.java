@@ -84,6 +84,7 @@ public class menuUtama extends javax.swing.JFrame {
         jkalender = new com.toedter.calendar.JDateChooser();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblmhsbaru = new javax.swing.JTable();
+        txtID = new javax.swing.JLabel();
         jp2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -291,7 +292,14 @@ public class menuUtama extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblmhsbaru.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblmhsbaruMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tblmhsbaru);
+
+        txtID.setText("jLabel18");
 
         javax.swing.GroupLayout jp1Layout = new javax.swing.GroupLayout(jp1);
         jp1.setLayout(jp1Layout);
@@ -335,13 +343,19 @@ public class menuUtama extends javax.swing.JFrame {
                     .addGroup(jp1Layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(203, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtID)
+                .addGap(134, 134, 134))
         );
         jp1Layout.setVerticalGroup(
             jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp1Layout.createSequentialGroup()
                 .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jp1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGap(14, 14, 14)
+                        .addComponent(txtID)
+                        .addGap(23, 23, 23)
                         .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNama, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -658,6 +672,41 @@ public class menuUtama extends javax.swing.JFrame {
     }
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        String jkel="";
+        String nama = txtNama.getText();
+        int nisn = Integer.parseInt(txtNisn.getText());
+        String kota = txtKota.getText();
+        String alamat = txtAlamat.getText();
+        Fakultas f = (Fakultas)cmbFak.getSelectedItem();
+        Prodi p = (Prodi)cmbProdi.getSelectedItem();
+        int id = Integer.parseInt(txtID.getText());
+        
+        Connection.koneksi();
+        String sql = "UPDATE mhs_baru SET id_fakultas=?, id_prodi=?, nisn=?, nama=?, jk=?, tgl_lahir=?, kota=?, alamat=? WHERE id_pendaftaran=?";
+        try{
+            PreparedStatement ps = Connection.conn.prepareStatement(sql);
+            ps.setString(4, nama);
+            ps.setInt(3, nisn);
+            if(rdbLaki.isSelected() == true)jkel="Laki-laki";
+                else
+                    if(rdbPr.isSelected()== true)jkel="Perempuan";
+            ps.setString(5, jkel);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String tanggal = sdf.format(jkalender.getDate());
+            ps.setString(6, tanggal);
+            ps.setString(7, kota);
+            ps.setString(8, alamat);
+            ps.setInt(1, f.getId_fakultas());
+            ps.setInt(2, p.getId_prodi());
+            ps.setInt(9, id);
+            
+            ps.execute();
+            Connection.stmt.close();
+            showTableData();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -764,6 +813,22 @@ public class menuUtama extends javax.swing.JFrame {
         return "-";
     }
     
+    public int getFakIndex(List<Fakultas> authors, int id)
+    {
+        int targetIndex = -1;
+        
+        for(int i = 0; i < authors.size(); i++)
+        {
+            if(authors.get(i).getId_fakultas() == id)
+            {
+                targetIndex = i;
+                break;
+            }
+        }
+        
+       return targetIndex;
+    }
+    
     public String getDataProdi(List<Prodi> p, int id){
         for (Prodi _p : p){
             if(_p.getId_prodi()== id){
@@ -771,6 +836,41 @@ public class menuUtama extends javax.swing.JFrame {
             }
         }
         return "-";
+    }
+    
+    public int getProdiIndex(List<Prodi> authors, int id)
+    {
+        int targetIndex = -1;
+        
+        for(int i = 0; i < authors.size(); i++)
+        {
+            if(authors.get(i).getId_prodi() == id)
+            {
+                targetIndex = i;
+                break;
+            }
+        }
+        
+       return targetIndex;
+    }
+    
+    public void getData(){
+        int baris = tblmhsbaru.getSelectedRow();
+        txtID.setVisible(false);
+        txtID.setText(Integer.toString(mhs.get(baris).getId_pendaftaran()));
+        txtNama.setText(mhs.get(baris).getNama());
+        txtNisn.setText(Integer.toString(mhs.get(baris).getNisn()));
+        jkalender.setDate(mhs.get(baris).getTgl_lahir());
+        txtKota.setText(mhs.get(baris).getKota());
+        txtAlamat.setText(mhs.get(baris).getAlamat());
+        cmbFak.setSelectedIndex(getFakIndex(fakultas, mhs.get(baris).getId_fakultas()));
+        cmbProdi.setSelectedIndex(getProdiIndex(prodi, mhs.get(baris).getId_prodi()));
+        if(rdbLaki.getText().equals(mhs.get(baris).getJk())){
+            rdbLaki.setSelected(true);
+        }
+        if(rdbPr.getText().equals(mhs.get(baris).getJk())){
+            rdbPr.setSelected(true);
+        }
     }
     private void btnEditPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPendActionPerformed
         // TODO add your handling code here:
@@ -813,6 +913,11 @@ public class menuUtama extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnSimpanPendActionPerformed
+
+    private void tblmhsbaruMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblmhsbaruMouseClicked
+        // TODO add your handling code here:
+        getData();
+    }//GEN-LAST:event_tblmhsbaruMouseClicked
 
     /**
      * @param args the command line arguments
@@ -897,6 +1002,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbPr;
     private javax.swing.JTable tblmhsbaru;
     private javax.swing.JTextArea txtAlamat;
+    private javax.swing.JLabel txtID;
     private javax.swing.JTextField txtKota;
     private javax.swing.JTextField txtKsklh;
     private javax.swing.JTextField txtNama;

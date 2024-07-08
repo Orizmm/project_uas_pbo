@@ -14,7 +14,9 @@ import models.Fakultas;
 import models.Prodi;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.MahasiswaBaru;
 
 /**
  *
@@ -28,12 +30,14 @@ public class menuUtama extends javax.swing.JFrame {
     List<Fakultas> fakultas = new ArrayList<>();
     List<Prodi> prodi = new ArrayList<>();
     private boolean isUpdatingProdi = false;
+    List<MahasiswaBaru> mhs = new ArrayList<>();
     public menuUtama() {
         initComponents();
         showComboBoxFak();
         cmbProdi.setEnabled(false);
         showComboBoxSekolah();
         showComboBoxJurusanSklh();
+        showTableData();
     }
 
     
@@ -77,9 +81,9 @@ public class menuUtama extends javax.swing.JFrame {
         btnKeluar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAlamat = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jkalender = new com.toedter.calendar.JDateChooser();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblmhsbaru = new javax.swing.JTable();
         jp2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -276,7 +280,7 @@ public class menuUtama extends javax.swing.JFrame {
         txtAlamat.setRows(5);
         jScrollPane1.setViewportView(txtAlamat);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblmhsbaru.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -287,9 +291,7 @@ public class menuUtama extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
-
-        jkalender.setDateFormatString("yyyy-MM-dd");
+        jScrollPane4.setViewportView(tblmhsbaru);
 
         javax.swing.GroupLayout jp1Layout = new javax.swing.GroupLayout(jp1);
         jp1.setLayout(jp1Layout);
@@ -321,21 +323,18 @@ public class menuUtama extends javax.swing.JFrame {
                                 .addComponent(rdbLaki, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rdbPr, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jkalender, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnKosongkan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnKeluar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jkalender, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnKosongkan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnKeluar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29))
                     .addGroup(jp1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(268, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(203, Short.MAX_VALUE))))
         );
         jp1Layout.setVerticalGroup(
             jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,9 +355,9 @@ public class menuUtama extends javax.swing.JFrame {
                             .addComponent(rdbLaki)
                             .addComponent(rdbPr))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jkalender, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                            .addComponent(jkalender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,7 +386,7 @@ public class menuUtama extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
@@ -500,7 +499,7 @@ public class menuUtama extends javax.swing.JFrame {
                                 .addComponent(txtKsklh, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(txtNsklh, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbSklh, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
         jp2Layout.setVerticalGroup(
             jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,7 +550,7 @@ public class menuUtama extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -671,6 +670,8 @@ public class menuUtama extends javax.swing.JFrame {
 
     private void btnKosongkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKosongkanActionPerformed
         // TODO add your handling code here:
+        txtNama.setText("");
+        txtNisn.setText("");
         
     }//GEN-LAST:event_btnKosongkanActionPerformed
     
@@ -685,23 +686,26 @@ public class menuUtama extends javax.swing.JFrame {
         Prodi p = (Prodi)cmbProdi.getSelectedItem();
         
         Connection.koneksi();
-        String sql = "INSERT INTO mhs_baru(nama, nisn, jk, tgl_lahir, kota, alamat, id_fakultas, id_prodi, id_pendidikan) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO mhs_baru(id_fakultas, id_prodi, nisn, nama, jk, tgl_lahir, kota, alamat) VALUES (?,?,?,?,?,?,?,?)";
         try{
             PreparedStatement ps = Connection.conn.prepareStatement(sql);
-            ps.setString(1, nama);
-            ps.setInt(2, nisn);
+            ps.setString(4, nama);
+            ps.setInt(3, nisn);
             if(rdbLaki.isSelected() == true)jkel="Laki-laki";
                 else
                     if(rdbPr.isSelected()== true)jkel="Perempuan";
-            ps.setString(3, jkel);
+            ps.setString(5, jkel);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String tanggal = sdf.format(jkalender.getDate());
-            ps.setString(4, tanggal);
-            ps.setString(5, kota);
-            ps.setString(6, alamat);
-            ps.setInt(7, f.getId_fakultas());
-            ps.setInt(8, p.getId_prodi());
+            ps.setString(6, tanggal);
+            ps.setString(7, kota);
+            ps.setString(8, alamat);
+            ps.setInt(1, f.getId_fakultas());
+            ps.setInt(2, p.getId_prodi());
             
+            ps.execute();
+            Connection.stmt.close();
+            showTableData();
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -709,6 +713,65 @@ public class menuUtama extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSimpanActionPerformed
 
+    public void showTableData()
+    {
+        Connection.koneksi();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No.");
+        model.addColumn("Fakultas");
+        model.addColumn("Program Studi");
+        model.addColumn("NISN");
+        model.addColumn("Nama");
+        model.addColumn("Jenis Kelamin");
+        model.addColumn("Tanggal Lahir");
+        model.addColumn("Kota");
+        model.addColumn("Alamat");
+        String sql = "SELECT * FROM mhs_baru mb JOIN fakultas f ON mb.id_fakultas = f.id_fakultas JOIN prodi p on mb.id_prodi = p.id_prodi";
+        try{
+            mhs.clear();
+            Connection.rs = Connection.stmt.executeQuery(sql);
+            while(Connection.rs.next())
+            {
+                mhs.add(new MahasiswaBaru(Connection.rs.getInt("id_pendaftaran"), Connection.rs.getInt("id_fakultas"), 
+                Connection.rs.getInt("id_prodi"), Connection.rs.getInt("nisn"), Connection.rs.getString("nama"), 
+                        Connection.rs.getString("jk"), Connection.rs.getDate("tgl_lahir"), Connection.rs.getString("kota"), Connection.rs.getString("alamat")));
+            }
+            
+           int i = 1;
+           for(MahasiswaBaru b: mhs)
+           {
+               int idf = b.getId_fakultas();
+               String namaFakultas = getDataFakultas(fakultas, idf);
+               int idp = b.getId_prodi();
+               String namaProdi = getDataProdi(prodi, idp);
+               model.addRow(new Object[] {
+                   i,namaFakultas, namaProdi, b.getNisn(), b.getNama(), b.getJk(), b.getTgl_lahir(), b.getKota(), b.getAlamat()
+               });
+               i++;
+           }
+           Connection.rs.close();
+           tblmhsbaru.setModel(model);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public String getDataFakultas(List<Fakultas> f, int id){
+        for (Fakultas _f : f){
+            if(_f.getId_fakultas() == id){
+                return _f.getNamaFakultas();
+            }
+        }
+        return "-";
+    }
+    
+    public String getDataProdi(List<Prodi> p, int id){
+        for (Prodi _p : p){
+            if(_p.getId_prodi()== id){
+                return _p.getNama_prodi();
+            }
+        }
+        return "-";
+    }
     private void btnEditPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPendActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditPendActionPerformed
@@ -734,7 +797,7 @@ public class menuUtama extends javax.swing.JFrame {
         double nilaiSKHUN;
         
         Connection.koneksi();
-        String sql = "INSERT INTO pendidikan_akhir(sekolah, jurusan, kota, provinsi, nilai_skhun) VALUES "+"(?,?,?,?,?)";
+        String sql = "INSERT INTO pendidikan_akhir(id_pendaftaran, sekolah, jurusan, kota, provinsi, nilai_skhun) VALUES "+"(?,?,?,?,?)";
         try{
             nilaiSKHUN = Double.parseDouble(txtSKHUN.getText());
             PreparedStatement ps = Connection.conn.prepareStatement(sql);
@@ -821,10 +884,9 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel jjk;
     private com.toedter.calendar.JDateChooser jkalender;
@@ -833,6 +895,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JPanel pend;
     private javax.swing.JRadioButton rdbLaki;
     private javax.swing.JRadioButton rdbPr;
+    private javax.swing.JTable tblmhsbaru;
     private javax.swing.JTextArea txtAlamat;
     private javax.swing.JTextField txtKota;
     private javax.swing.JTextField txtKsklh;

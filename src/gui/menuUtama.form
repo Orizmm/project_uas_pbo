@@ -246,8 +246,8 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="txtID" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                      <Component id="txtID" min="-2" pref="36" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -256,9 +256,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              <Component id="txtID" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="txtNama" pref="31" max="32767" attributes="0"/>
                                   <Component id="jLabel4" max="32767" attributes="0"/>
@@ -301,7 +299,9 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Component id="txtID" min="-2" pref="15" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                               <Component id="btnSimpan" min="-2" pref="31" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Component id="btnHapus" min="-2" pref="31" max="-2" attributes="0"/>
@@ -315,7 +315,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="190" max="-2" attributes="0"/>
-                      <EmptySpace pref="71" max="32767" attributes="0"/>
+                      <EmptySpace pref="87" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -432,13 +432,19 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rdbLaki">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Laki-Laki"/>
+                <Property name="text" type="java.lang.String" value="Laki-laki"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="rdbLakiMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rdbPr">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Perempuan"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="rdbPrMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnSimpan">
               <Properties>
@@ -522,9 +528,6 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="txtID">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel18"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

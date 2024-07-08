@@ -238,9 +238,19 @@ public class menuUtama extends javax.swing.JFrame {
         jjk.setText("Jenis Kelamin");
         jjk.setPreferredSize(new java.awt.Dimension(80, 16));
 
-        rdbLaki.setText("Laki-Laki");
+        rdbLaki.setText("Laki-laki");
+        rdbLaki.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdbLakiMouseClicked(evt);
+            }
+        });
 
         rdbPr.setText("Perempuan");
+        rdbPr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdbPrMouseClicked(evt);
+            }
+        });
 
         btnSimpan.setText("Simpan");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -299,8 +309,6 @@ public class menuUtama extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tblmhsbaru);
 
-        txtID.setText("jLabel18");
-
         javax.swing.GroupLayout jp1Layout = new javax.swing.GroupLayout(jp1);
         jp1.setLayout(jp1Layout);
         jp1Layout.setHorizontalGroup(
@@ -345,17 +353,15 @@ public class menuUtama extends javax.swing.JFrame {
                         .addContainerGap(203, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtID)
-                .addGap(134, 134, 134))
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(113, 113, 113))
         );
         jp1Layout.setVerticalGroup(
             jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp1Layout.createSequentialGroup()
                 .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jp1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(txtID)
-                        .addGap(23, 23, 23)
+                        .addGap(37, 37, 37)
                         .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNama, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -389,7 +395,9 @@ public class menuUtama extends javax.swing.JFrame {
                             .addComponent(cmbProdi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jp1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
+                        .addGap(14, 14, 14)
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,7 +409,7 @@ public class menuUtama extends javax.swing.JFrame {
                         .addComponent(btnKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         jPanel2.add(jp1);
@@ -702,6 +710,7 @@ public class menuUtama extends javax.swing.JFrame {
             
             ps.execute();
             Connection.stmt.close();
+            kosongkan();
             showTableData();
         }catch(Exception e)
         {
@@ -711,6 +720,20 @@ public class menuUtama extends javax.swing.JFrame {
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
+        int id = Integer.parseInt(txtID.getText());
+        
+        String sql = "delete from mhs_baru where id_pendaftaran = "+id;
+        Connection.koneksi();
+        try{
+            PreparedStatement ps = Connection.conn.prepareStatement(sql);
+            ps.execute();
+            Connection.stmt.close();
+            Connection.conn.close();
+            kosongkan();
+            showTableData();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
@@ -734,6 +757,7 @@ public class menuUtama extends javax.swing.JFrame {
         cmbProdi.setEnabled(false);
         showComboBoxFak();
     }
+
     
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
@@ -753,9 +777,9 @@ public class menuUtama extends javax.swing.JFrame {
             ps.setInt(3, nisn);
             if(rdbLaki.isSelected() == true){
                 jkel="Laki-laki";
-            } 
-            else{
-                if(rdbPr.isSelected()== true)jkel="Perempuan";
+            }
+            if(rdbPr.isSelected()== true){
+                jkel="Perempuan";
             }
             ps.setString(5, jkel);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -768,6 +792,7 @@ public class menuUtama extends javax.swing.JFrame {
             
             ps.execute();
             Connection.stmt.close();
+            kosongkan();
             showTableData();
         }catch(Exception e)
         {
@@ -881,9 +906,11 @@ public class menuUtama extends javax.swing.JFrame {
         cmbProdi.setSelectedIndex(getProdiIndex(prodi, mhs.get(baris).getId_prodi()));
         if(rdbLaki.getText().equals(mhs.get(baris).getJk())){
             rdbLaki.setSelected(true);
+            rdbPr.setSelected(false);
         }
         if(rdbPr.getText().equals(mhs.get(baris).getJk())){
             rdbPr.setSelected(true);
+            rdbLaki.setSelected(false);
         }
     }
     private void btnEditPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPendActionPerformed
@@ -932,6 +959,16 @@ public class menuUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
         getData();
     }//GEN-LAST:event_tblmhsbaruMouseClicked
+
+    private void rdbLakiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdbLakiMouseClicked
+        // TODO add your handling code here:
+        rdbPr.setSelected(false);
+    }//GEN-LAST:event_rdbLakiMouseClicked
+
+    private void rdbPrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdbPrMouseClicked
+        // TODO add your handling code here:
+        rdbLaki.setSelected(false);
+    }//GEN-LAST:event_rdbPrMouseClicked
 
     /**
      * @param args the command line arguments

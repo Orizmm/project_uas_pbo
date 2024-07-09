@@ -13,15 +13,17 @@ public class PendidikanAkhir {
     private int id_pendidikan;
     private int id_pendaftaran;
     private String sekolah;
+    private String nama_sekolah;
     private String jurusan;
     private String kota;
     private String provinsi;
     private Double nilai_skhun;
     
-    public PendidikanAkhir(int id_pendaftaran, int id_pendidikan, String sekolah, String jurusan, String kota, String provinsi, Double nilai_skhun){
+    public PendidikanAkhir(int id_pendaftaran, int id_pendidikan, String sekolah, String nama_sekolah, String jurusan, String kota, String provinsi, Double nilai_skhun){
         this.id_pendaftaran = id_pendaftaran;
         this.id_pendidikan = id_pendidikan;
         this.sekolah = sekolah;
+        this.nama_sekolah = nama_sekolah;
         this.jurusan = jurusan;
         this.kota = kota;
         this.provinsi = provinsi;
@@ -59,7 +61,7 @@ public class PendidikanAkhir {
     /**
      * @return the kota
      */
-    public String getKota() {
+    public String getKota_Sekolah() {
         return kota;
     }
 
@@ -75,6 +77,10 @@ public class PendidikanAkhir {
      */
     public Double getNilai_skhun() {
         return nilai_skhun;
+    }
+    
+    public String getNama_Sekolah(){
+        return nama_sekolah;
     }
     
 //    public String toString(){

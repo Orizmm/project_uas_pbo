@@ -111,6 +111,7 @@ public class menuUtama extends javax.swing.JFrame {
         cmbJsklh = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         cmbNama = new javax.swing.JComboBox<>();
+        txtidPend = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -346,7 +347,7 @@ public class menuUtama extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rdbPr, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jkalender, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGap(18, 69, Short.MAX_VALUE)
                         .addGroup(jp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnKosongkan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -355,8 +356,8 @@ public class menuUtama extends javax.swing.JFrame {
                             .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29))
                     .addGroup(jp1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(203, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(21, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -414,8 +415,8 @@ public class menuUtama extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel2.add(jp1);
@@ -472,6 +473,11 @@ public class menuUtama extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPend.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPendMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblPend);
 
         btnEditPend.setText("Edit");
@@ -535,11 +541,14 @@ public class menuUtama extends javax.swing.JFrame {
                             .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(cmbJsklh, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtKsklh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(cmbSklh, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbNama, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNsklh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)))))
-                .addContainerGap(288, Short.MAX_VALUE))
+                            .addGroup(jp2Layout.createSequentialGroup()
+                                .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cmbSklh, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbNama, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtNsklh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtidPend, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
         jp2Layout.setVerticalGroup(
             jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,7 +561,9 @@ public class menuUtama extends javax.swing.JFrame {
                         .addComponent(jLabel18)
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp2Layout.createSequentialGroup()
-                        .addComponent(cmbNama, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtidPend, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbNama, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbSklh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -941,9 +952,63 @@ public class menuUtama extends javax.swing.JFrame {
     private void btnEditPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPendActionPerformed
         // TODO add your handling code here:
         // nama, sekolahcmb, namasekolah, cmbjurusan, kota, provinsi, nilaiskhun
-        pendidikanAkhir csekolah = (pendidikanAkhir)cmbSklh.getSelectedItem();
+        String pilihsklh = (String) cmbSklh.getSelectedItem();
+        String namasekolah = txtNsklh.getText();
+        String pilihJ = (String) cmbJsklh.getSelectedItem();
+        String kota = txtKsklh.getText();
+        String provinsi = txtPsklh.getText();
+        double nilaiskhun = Double.parseDouble(txtSKHUN.getText());
+        int id = Integer.parseInt(txtidPend.getText());
+        
+        Connection.koneksi();
+        String sql = "UPDATE pendidikan_akhir SET sekolah=?, nama_sekolah=?, jurusan=?, kota=?, provinsi=?, nilai_skhun=? WHERE id_pendidikan=?";
+        try{
+            PreparedStatement ps = Connection.conn.prepareStatement(sql);
+            ps.setString(1, pilihsklh);
+            ps.setString(2, namasekolah);
+            ps.setString(3, pilihJ);
+            ps.setString(4, kota);
+            ps.setString(5, provinsi);
+            ps.setDouble(6, nilaiskhun);
+            ps.setInt(7, id);
+            
+            ps.execute();
+            Connection.stmt.close();
+           //kosongkan();
+            showTableDataPend();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnEditPendActionPerformed
-
+    public void getDataPend(){
+        int baris = tblPend.getSelectedRow();
+        txtidPend.setVisible(false);
+        txtidPend.setText(Integer.toString(pendidikan.get(baris).getId_pendidikan()));
+        cmbNama.setSelectedIndex(getPenIndex(mhs, pendidikan.get(baris).getId_pendaftaran()));
+        cmbSklh.setSelectedItem(pendidikan.get(baris).getSekolah());
+        txtNsklh.setText(pendidikan.get(baris).getNama_Sekolah());
+        showComboBoxJurusanSklh();
+        cmbJsklh.setSelectedItem(pendidikan.get(baris).getJurusan());
+        txtKsklh.setText(pendidikan.get(baris).getKota_Sekolah());
+        txtPsklh.setText(pendidikan.get(baris).getProvinsi());
+        txtSKHUN.setText(Double.toString(pendidikan.get(baris).getNilai_skhun()));
+    }
+    
+    public int getPenIndex(List<MahasiswaBaru> authors, int id)
+    {
+        int targetIndex = -1;
+        
+        for(int i = 0; i < authors.size(); i++)
+        {
+            if(authors.get(i).getId_pendaftaran()== id)
+            {
+                targetIndex = i;
+                break;
+            }
+        }
+        
+       return targetIndex;
+    }
     private void txtNsklhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNsklhActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNsklhActionPerformed
@@ -976,6 +1041,7 @@ public class menuUtama extends javax.swing.JFrame {
     private void btnSimpanPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanPendActionPerformed
         // TODO add your handling code here:
         MahasiswaBaru idPendaf = (MahasiswaBaru)cmbNama.getSelectedItem();
+        String pilihsklh = (String) cmbSklh.getSelectedItem();
         String namasklh = txtNsklh.getText();
         String jurusan = (String) cmbJsklh.getSelectedItem();
         String kota = txtKsklh.getText();
@@ -983,16 +1049,17 @@ public class menuUtama extends javax.swing.JFrame {
         double nilaiSKHUN;
         
         Connection.koneksi();
-        String sql = "INSERT INTO pendidikan_akhir(id_pendaftaran, sekolah, jurusan, kota, provinsi, nilai_skhun) VALUES "+"(?,?,?,?,?,?)";
+        String sql = "INSERT INTO pendidikan_akhir(id_pendaftaran, sekolah, nama_sekolah, jurusan, kota, provinsi, nilai_skhun) VALUES "+"(?,?,?,?,?,?,?)";
         try{
             nilaiSKHUN = Double.parseDouble(txtSKHUN.getText());
             PreparedStatement ps = Connection.conn.prepareStatement(sql);
             ps.setInt(1, idPendaf.getId_pendaftaran());
-            ps.setString(2, namasklh);
-            ps.setString(3, jurusan);
-            ps.setString(4, kota);
-            ps.setString(5, provinsi);
-            ps.setDouble(6, nilaiSKHUN);
+            ps.setString(2, pilihsklh);
+            ps.setString(3, namasklh);
+            ps.setString(4, jurusan);
+            ps.setString(5, kota);
+            ps.setString(6, provinsi);
+            ps.setDouble(7, nilaiSKHUN);
             
             ps.execute();
             Connection.stmt.close();
@@ -1009,6 +1076,7 @@ public class menuUtama extends javax.swing.JFrame {
         model.addColumn("No.");
         model.addColumn("Nama");
         model.addColumn("Sekolah");
+        model.addColumn("Nama Sekolah");
         model.addColumn("Jurusan");
         model.addColumn("Kota");
         model.addColumn("Provinsi");
@@ -1020,7 +1088,7 @@ public class menuUtama extends javax.swing.JFrame {
             while(Connection.rs.next())
             {
                 pendidikan.add(new PendidikanAkhir(Connection.rs.getInt("id_pendaftaran"), Connection.rs.getInt("id_pendidikan"), Connection.rs.getString("sekolah"), 
-                Connection.rs.getString("jurusan"), Connection.rs.getString("kota"), Connection.rs.getString("Provinsi"), Connection.rs.getDouble("nilai_skhun")));
+                Connection.rs.getString("nama_sekolah"), Connection.rs.getString("jurusan"), Connection.rs.getString("kota"), Connection.rs.getString("Provinsi"), Connection.rs.getDouble("nilai_skhun")));
             }
             
            int i = 1;
@@ -1029,7 +1097,7 @@ public class menuUtama extends javax.swing.JFrame {
                int idPend = b.getId_pendaftaran();
                String namaMhs = getDataMhs_baru(mhs, idPend);
                model.addRow(new Object[] {
-                   i,namaMhs, b.getSekolah(), b.getJurusan(), b.getKota(), b.getProvinsi(), b.getNilai_skhun()
+                   i,namaMhs, b.getSekolah(), b.getNama_Sekolah(), b.getJurusan(), b.getKota_Sekolah(), b.getProvinsi(), b.getNilai_skhun()
                });
                i++;
            }
@@ -1067,6 +1135,11 @@ public class menuUtama extends javax.swing.JFrame {
     private void cmbSklhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSklhActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbSklhActionPerformed
+
+    private void tblPendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPendMouseClicked
+        // TODO add your handling code here:
+        getDataPend();
+    }//GEN-LAST:event_tblPendMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1161,5 +1234,6 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JTextField txtNsklh;
     private javax.swing.JTextField txtPsklh;
     private javax.swing.JTextField txtSKHUN;
+    private javax.swing.JLabel txtidPend;
     // End of variables declaration//GEN-END:variables
 }

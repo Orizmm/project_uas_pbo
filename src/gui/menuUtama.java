@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.MahasiswaBaru;
+import models.PendidikanAkhir;
 
 /**
  *
@@ -31,15 +32,16 @@ public class menuUtama extends javax.swing.JFrame {
     List<Prodi> prodi = new ArrayList<>();
     private boolean isUpdatingProdi = false;
     List<MahasiswaBaru> mhs = new ArrayList<>();
-    List<pendidikanAkhir> pendidikan = new ArrayList<>();
+    List<PendidikanAkhir> pendidikan = new ArrayList<>();
     public menuUtama() {
-        initComponents();
+        initComponents(); 
         showComboBoxFak();
         cmbProdi.setEnabled(false);
         showComboBoxSekolah();
         showComboBoxJurusanSklh();
         showComboBoxNama();
         showTableData();
+        showTableDataPend();
     }
 
     
@@ -100,7 +102,7 @@ public class menuUtama extends javax.swing.JFrame {
         txtPsklh = new javax.swing.JTextField();
         btnSimpanPend = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblPend = new javax.swing.JTable();
         btnEditPend = new javax.swing.JButton();
         btnHpsPend = new javax.swing.JButton();
         btnKosongPend = new javax.swing.JButton();
@@ -459,7 +461,7 @@ public class menuUtama extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblPend.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -470,7 +472,7 @@ public class menuUtama extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tblPend);
 
         btnEditPend.setText("Edit");
         btnEditPend.addActionListener(new java.awt.event.ActionListener() {
@@ -973,6 +975,7 @@ public class menuUtama extends javax.swing.JFrame {
     
     private void btnSimpanPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanPendActionPerformed
         // TODO add your handling code here:
+        MahasiswaBaru idPendaf = (MahasiswaBaru)cmbNama.getSelectedItem();
         String namasklh = txtNsklh.getText();
         String jurusan = (String) cmbJsklh.getSelectedItem();
         String kota = txtKsklh.getText();
@@ -980,18 +983,20 @@ public class menuUtama extends javax.swing.JFrame {
         double nilaiSKHUN;
         
         Connection.koneksi();
-        String sql = "INSERT INTO pendidikan_akhir(id_pendaftaran, sekolah, jurusan, kota, provinsi, nilai_skhun) VALUES "+"(?,?,?,?,?)";
+        String sql = "INSERT INTO pendidikan_akhir(id_pendaftaran, sekolah, jurusan, kota, provinsi, nilai_skhun) VALUES "+"(?,?,?,?,?,?)";
         try{
             nilaiSKHUN = Double.parseDouble(txtSKHUN.getText());
             PreparedStatement ps = Connection.conn.prepareStatement(sql);
-            ps.setString(1, namasklh);
-            ps.setString(2, jurusan);
-            ps.setString(3, kota);
-            ps.setString(4, provinsi);
-            ps.setDouble(5, nilaiSKHUN);
+            ps.setInt(1, idPendaf.getId_pendaftaran());
+            ps.setString(2, namasklh);
+            ps.setString(3, jurusan);
+            ps.setString(4, kota);
+            ps.setString(5, provinsi);
+            ps.setDouble(6, nilaiSKHUN);
             
             ps.execute();
             Connection.stmt.close();
+            showTableDataPend();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -1010,32 +1015,38 @@ public class menuUtama extends javax.swing.JFrame {
         model.addColumn("nilai_skhun");
         String sql = "SELECT * FROM pendidikan_akhir a JOIN mhs_baru b ON a.id_pendaftaran = b.id_pendaftaran";
         try{
-            mhs.clear();
+            pendidikan.clear();
             Connection.rs = Connection.stmt.executeQuery(sql);
             while(Connection.rs.next())
             {
-                mhs.add(new MahasiswaBaru(Connection.rs.getInt("id_pendaftaran"), Connection.rs.getInt("id_fakultas"), 
-                Connection.rs.getInt("id_prodi"), Connection.rs.getInt("nisn"), Connection.rs.getString("nama"), 
-                        Connection.rs.getString("jk"), Connection.rs.getDate("tgl_lahir"), Connection.rs.getString("kota"), Connection.rs.getString("alamat")));
+                pendidikan.add(new PendidikanAkhir(Connection.rs.getInt("id_pendaftaran"), Connection.rs.getInt("id_pendidikan"), Connection.rs.getString("sekolah"), 
+                Connection.rs.getString("jurusan"), Connection.rs.getString("kota"), Connection.rs.getString("Provinsi"), Connection.rs.getDouble("nilai_skhun")));
             }
             
            int i = 1;
-           for(MahasiswaBaru b: mhs)
+           for(PendidikanAkhir b: pendidikan)
            {
-               int idf = b.getId_fakultas();
-               String namaFakultas = getDataFakultas(fakultas, idf);
-               int idp = b.getId_prodi();
-               String namaProdi = getDataProdi(prodi, idp);
+               int idPend = b.getId_pendaftaran();
+               String namaMhs = getDataMhs_baru(mhs, idPend);
                model.addRow(new Object[] {
-                   i,namaFakultas, namaProdi, b.getNisn(), b.getNama(), b.getJk(), b.getTgl_lahir(), b.getKota(), b.getAlamat()
+                   i,namaMhs, b.getSekolah(), b.getJurusan(), b.getKota(), b.getProvinsi(), b.getNilai_skhun()
                });
                i++;
            }
            Connection.rs.close();
-           tblmhsbaru.setModel(model);
+           tblPend.setModel(model);
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    
+    private String getDataMhs_baru(List<MahasiswaBaru> mhs, int id){
+        for (MahasiswaBaru _mhs : mhs){
+            if(_mhs.getId_pendaftaran()== id){
+                return _mhs.getNama();
+            }
+        }
+        return "-";
     }
     
     private void tblmhsbaruMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblmhsbaruMouseClicked
@@ -1132,7 +1143,6 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel jjk;
     private com.toedter.calendar.JDateChooser jkalender;
     private javax.swing.JPanel jp1;
@@ -1140,6 +1150,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JPanel pend;
     private javax.swing.JRadioButton rdbLaki;
     private javax.swing.JRadioButton rdbPr;
+    private javax.swing.JTable tblPend;
     private javax.swing.JTable tblmhsbaru;
     private javax.swing.JTextArea txtAlamat;
     private javax.swing.JLabel txtID;

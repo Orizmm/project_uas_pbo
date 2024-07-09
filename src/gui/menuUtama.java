@@ -106,6 +106,7 @@ public class menuUtama extends javax.swing.JFrame {
         cmbSklh = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         cmbJsklh = new javax.swing.JComboBox<>();
+        txtidPend = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -525,7 +526,10 @@ public class menuUtama extends javax.swing.JFrame {
                             .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(cmbJsklh, javax.swing.GroupLayout.Alignment.LEADING, 0, 281, Short.MAX_VALUE)
                                 .addComponent(txtKsklh, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(txtNsklh, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jp2Layout.createSequentialGroup()
+                                .addComponent(txtNsklh, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtidPend, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cmbSklh, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(223, Short.MAX_VALUE))
         );
@@ -541,7 +545,8 @@ public class menuUtama extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNsklh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addComponent(txtidPend, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbJsklh, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -922,7 +927,33 @@ public class menuUtama extends javax.swing.JFrame {
     private void btnEditPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPendActionPerformed
         // TODO add your handling code here:
         // nama, sekolahcmb, namasekolah, cmbjurusan, kota, provinsi, nilaiskhun
-        pendidikanAkhir csekolah = (pendidikanAkhir)cmbSklh.getSelectedItem();
+        String pilihsklh = (String) cmbSklh.getSelectedItem();
+        String namasekolah = txtNsklh.getText();
+        String pilihJ = (String) cmbJsklh.getSelectedItem();
+        String kota = txtKota.getText();
+        String provinsi = txtPsklh.getText();
+        double nilaiskhun = Double.parseDouble(txtSKHUN.getText());
+        int id = Integer.parseInt(txtidPend.getText());
+        
+        Connection.koneksi();
+        String sql = "UPDATE pendidikan_akhir SET sekolah=?, jurusan=?, kota=?, provinsi=?, nilai_skhun=? WHERE id_pendidikan=?";
+        try{
+            PreparedStatement ps = Connection.conn.prepareStatement(sql);
+            ps.setString(1, pilihsklh);
+            ps.setString(2, namasekolah);
+            ps.setString(3, pilihJ);
+            ps.setString(4, kota);
+            ps.setString(5, provinsi);
+            ps.setDouble(6, nilaiskhun);
+            ps.setInt(7, id);
+            
+            ps.execute();
+            Connection.stmt.close();
+           // kosongkan();
+            //showTableData();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnEditPendActionPerformed
 
     private void txtNsklhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNsklhActionPerformed
@@ -1073,5 +1104,6 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JTextField txtNsklh;
     private javax.swing.JTextField txtPsklh;
     private javax.swing.JTextField txtSKHUN;
+    private javax.swing.JLabel txtidPend;
     // End of variables declaration//GEN-END:variables
 }

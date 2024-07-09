@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.MahasiswaBaru;
+import models.PendidikanAkhir;
 
 /**
  *
@@ -31,14 +32,16 @@ public class menuUtama extends javax.swing.JFrame {
     List<Prodi> prodi = new ArrayList<>();
     private boolean isUpdatingProdi = false;
     List<MahasiswaBaru> mhs = new ArrayList<>();
-    List<pendidikanAkhir> pendidikan = new ArrayList<>();
+    List<PendidikanAkhir> pendidikan = new ArrayList<>();
     public menuUtama() {
-        initComponents();
+        initComponents(); 
         showComboBoxFak();
         cmbProdi.setEnabled(false);
         showComboBoxSekolah();
         showComboBoxJurusanSklh();
+        showComboBoxNama();
         showTableData();
+        showTableDataPend();
     }
 
     
@@ -99,14 +102,14 @@ public class menuUtama extends javax.swing.JFrame {
         txtPsklh = new javax.swing.JTextField();
         btnSimpanPend = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblPend = new javax.swing.JTable();
         btnEditPend = new javax.swing.JButton();
         btnHpsPend = new javax.swing.JButton();
         btnKosongPend = new javax.swing.JButton();
         cmbSklh = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         cmbJsklh = new javax.swing.JComboBox<>();
-        txtidPend = new javax.swing.JLabel();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -457,7 +460,7 @@ public class menuUtama extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblPend.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -468,7 +471,7 @@ public class menuUtama extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tblPend);
 
         btnEditPend.setText("Edit");
         btnEditPend.addActionListener(new java.awt.event.ActionListener() {
@@ -492,6 +495,10 @@ public class menuUtama extends javax.swing.JFrame {
 
         cmbJsklh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel18.setText("Nama");
+
+        cmbNama.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jp2Layout = new javax.swing.GroupLayout(jp2);
         jp2.setLayout(jp2Layout);
         jp2Layout.setHorizontalGroup(
@@ -499,10 +506,10 @@ public class menuUtama extends javax.swing.JFrame {
             .addGroup(jp2Layout.createSequentialGroup()
                 .addGap(109, 109, 109)
                 .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jp2Layout.createSequentialGroup()
                         .addGap(213, 213, 213)
                         .addComponent(jLabel11))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jp2Layout.createSequentialGroup()
                         .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
@@ -510,7 +517,8 @@ public class menuUtama extends javax.swing.JFrame {
                             .addComponent(jLabel14)
                             .addComponent(jLabel17)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel13))
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel18))
                         .addGap(25, 25, 25)
                         .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSKHUN, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -524,21 +532,21 @@ public class menuUtama extends javax.swing.JFrame {
                                 .addComponent(btnKosongPend))
                             .addComponent(txtPsklh, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(cmbJsklh, javax.swing.GroupLayout.Alignment.LEADING, 0, 281, Short.MAX_VALUE)
-                                .addComponent(txtKsklh, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(jp2Layout.createSequentialGroup()
-                                .addComponent(txtNsklh, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtidPend, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cmbSklh, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(223, Short.MAX_VALUE))
+
         );
         jp2Layout.setVerticalGroup(
             jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp2Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp2Layout.createSequentialGroup()
+                        .addComponent(cmbNama, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbSklh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
@@ -569,9 +577,9 @@ public class menuUtama extends javax.swing.JFrame {
                     .addComponent(btnEditPend)
                     .addComponent(btnHpsPend)
                     .addComponent(btnKosongPend))
-                .addGap(58, 58, 58)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addContainerGap())
         );
 
         jPanel2.add(jp2);
@@ -968,8 +976,26 @@ public class menuUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPsklhActionPerformed
 
+    public void showComboBoxNama(){
+        Connection.koneksi();
+        String sql = "SELECT * FROM mhs_baru";
+        try{
+            mhs.clear();
+            Connection.rs = Connection.stmt.executeQuery(sql);
+            while(Connection.rs.next()){
+                mhs.add(new MahasiswaBaru(Connection.rs.getInt("id_pendaftaran"), Connection.rs.getInt("id_fakultas"), Connection.rs.getInt("id_prodi"), Connection.rs.getInt("nisn"), Connection.rs.getString("nama"), Connection.rs.getString("jk"), Connection.rs.getDate("tgl_lahir"), Connection.rs.getString("kota"), Connection.rs.getString("alamat")));
+           }
+            cmbNama.setModel(new DefaultComboBoxModel(mhs.toArray()));
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
     private void btnSimpanPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanPendActionPerformed
         // TODO add your handling code here:
+        MahasiswaBaru idPendaf = (MahasiswaBaru)cmbNama.getSelectedItem();
         String namasklh = txtNsklh.getText();
         String jurusan = (String) cmbJsklh.getSelectedItem();
         String kota = txtKsklh.getText();
@@ -977,23 +1003,72 @@ public class menuUtama extends javax.swing.JFrame {
         double nilaiSKHUN;
         
         Connection.koneksi();
-        String sql = "INSERT INTO pendidikan_akhir(id_pendaftaran, sekolah, jurusan, kota, provinsi, nilai_skhun) VALUES "+"(?,?,?,?,?)";
+        String sql = "INSERT INTO pendidikan_akhir(id_pendaftaran, sekolah, jurusan, kota, provinsi, nilai_skhun) VALUES "+"(?,?,?,?,?,?)";
         try{
             nilaiSKHUN = Double.parseDouble(txtSKHUN.getText());
             PreparedStatement ps = Connection.conn.prepareStatement(sql);
-            ps.setString(1, namasklh);
-            ps.setString(2, jurusan);
-            ps.setString(3, kota);
-            ps.setString(4, provinsi);
-            ps.setDouble(5, nilaiSKHUN);
+            ps.setInt(1, idPendaf.getId_pendaftaran());
+            ps.setString(2, namasklh);
+            ps.setString(3, jurusan);
+            ps.setString(4, kota);
+            ps.setString(5, provinsi);
+            ps.setDouble(6, nilaiSKHUN);
             
             ps.execute();
             Connection.stmt.close();
+            showTableDataPend();
         }catch(Exception e){
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnSimpanPendActionPerformed
 
+    public void showTableDataPend()
+    {
+        Connection.koneksi();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No.");
+        model.addColumn("Nama");
+        model.addColumn("Sekolah");
+        model.addColumn("Jurusan");
+        model.addColumn("Kota");
+        model.addColumn("Provinsi");
+        model.addColumn("nilai_skhun");
+        String sql = "SELECT * FROM pendidikan_akhir a JOIN mhs_baru b ON a.id_pendaftaran = b.id_pendaftaran";
+        try{
+            pendidikan.clear();
+            Connection.rs = Connection.stmt.executeQuery(sql);
+            while(Connection.rs.next())
+            {
+                pendidikan.add(new PendidikanAkhir(Connection.rs.getInt("id_pendaftaran"), Connection.rs.getInt("id_pendidikan"), Connection.rs.getString("sekolah"), 
+                Connection.rs.getString("jurusan"), Connection.rs.getString("kota"), Connection.rs.getString("Provinsi"), Connection.rs.getDouble("nilai_skhun")));
+            }
+            
+           int i = 1;
+           for(PendidikanAkhir b: pendidikan)
+           {
+               int idPend = b.getId_pendaftaran();
+               String namaMhs = getDataMhs_baru(mhs, idPend);
+               model.addRow(new Object[] {
+                   i,namaMhs, b.getSekolah(), b.getJurusan(), b.getKota(), b.getProvinsi(), b.getNilai_skhun()
+               });
+               i++;
+           }
+           Connection.rs.close();
+           tblPend.setModel(model);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    private String getDataMhs_baru(List<MahasiswaBaru> mhs, int id){
+        for (MahasiswaBaru _mhs : mhs){
+            if(_mhs.getId_pendaftaran()== id){
+                return _mhs.getNama();
+            }
+        }
+        return "-";
+    }
+    
     private void tblmhsbaruMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblmhsbaruMouseClicked
         // TODO add your handling code here:
         getData();
@@ -1060,6 +1135,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JButton btnSimpanPend;
     private javax.swing.JComboBox<String> cmbFak;
     private javax.swing.JComboBox<String> cmbJsklh;
+    private javax.swing.JComboBox<String> cmbNama;
     private javax.swing.JComboBox<String> cmbProdi;
     private javax.swing.JComboBox<String> cmbSklh;
     private javax.swing.JPanel form;
@@ -1072,6 +1148,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1086,7 +1163,6 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel jjk;
     private com.toedter.calendar.JDateChooser jkalender;
     private javax.swing.JPanel jp1;
@@ -1094,6 +1170,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JPanel pend;
     private javax.swing.JRadioButton rdbLaki;
     private javax.swing.JRadioButton rdbPr;
+    private javax.swing.JTable tblPend;
     private javax.swing.JTable tblmhsbaru;
     private javax.swing.JTextArea txtAlamat;
     private javax.swing.JLabel txtID;

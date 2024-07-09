@@ -31,6 +31,7 @@ public class menuUtama extends javax.swing.JFrame {
     List<Prodi> prodi = new ArrayList<>();
     private boolean isUpdatingProdi = false;
     List<MahasiswaBaru> mhs = new ArrayList<>();
+    List<pendidikanAkhir> pendidikan = new ArrayList<>();
     public menuUtama() {
         initComponents();
         showComboBoxFak();
@@ -480,6 +481,11 @@ public class menuUtama extends javax.swing.JFrame {
         btnKosongPend.setText("Kosongkan");
 
         cmbSklh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSklh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSklhActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("Sekolah");
 
@@ -915,6 +921,8 @@ public class menuUtama extends javax.swing.JFrame {
     }
     private void btnEditPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPendActionPerformed
         // TODO add your handling code here:
+        // nama, sekolahcmb, namasekolah, cmbjurusan, kota, provinsi, nilaiskhun
+        pendidikanAkhir csekolah = (pendidikanAkhir)cmbSklh.getSelectedItem();
     }//GEN-LAST:event_btnEditPendActionPerformed
 
     private void txtNsklhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNsklhActionPerformed
@@ -969,6 +977,10 @@ public class menuUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
         rdbLaki.setSelected(false);
     }//GEN-LAST:event_rdbPrMouseClicked
+
+    private void cmbSklhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSklhActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSklhActionPerformed
 
     /**
      * @param args the command line arguments

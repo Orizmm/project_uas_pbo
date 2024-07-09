@@ -37,6 +37,7 @@ public class menuUtama extends javax.swing.JFrame {
         cmbProdi.setEnabled(false);
         showComboBoxSekolah();
         showComboBoxJurusanSklh();
+        showComboBoxNama();
         showTableData();
     }
 
@@ -105,6 +106,8 @@ public class menuUtama extends javax.swing.JFrame {
         cmbSklh = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         cmbJsklh = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
+        cmbNama = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -485,6 +488,10 @@ public class menuUtama extends javax.swing.JFrame {
 
         cmbJsklh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel18.setText("Nama");
+
+        cmbNama.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jp2Layout = new javax.swing.GroupLayout(jp2);
         jp2.setLayout(jp2Layout);
         jp2Layout.setHorizontalGroup(
@@ -492,10 +499,10 @@ public class menuUtama extends javax.swing.JFrame {
             .addGroup(jp2Layout.createSequentialGroup()
                 .addGap(109, 109, 109)
                 .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jp2Layout.createSequentialGroup()
                         .addGap(213, 213, 213)
                         .addComponent(jLabel11))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jp2Layout.createSequentialGroup()
                         .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
@@ -503,7 +510,8 @@ public class menuUtama extends javax.swing.JFrame {
                             .addComponent(jLabel14)
                             .addComponent(jLabel17)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel13))
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel18))
                         .addGap(25, 25, 25)
                         .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSKHUN, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -517,18 +525,27 @@ public class menuUtama extends javax.swing.JFrame {
                                 .addComponent(btnKosongPend))
                             .addComponent(txtPsklh, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(cmbJsklh, javax.swing.GroupLayout.Alignment.LEADING, 0, 281, Short.MAX_VALUE)
-                                .addComponent(txtKsklh, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(txtNsklh, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbSklh, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(223, Short.MAX_VALUE))
+                                .addComponent(cmbJsklh, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtKsklh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cmbSklh, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cmbNama, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNsklh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)))))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
         jp2Layout.setVerticalGroup(
             jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp2Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp2Layout.createSequentialGroup()
+                        .addComponent(cmbNama, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbSklh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
@@ -558,9 +575,9 @@ public class menuUtama extends javax.swing.JFrame {
                     .addComponent(btnEditPend)
                     .addComponent(btnHpsPend)
                     .addComponent(btnKosongPend))
-                .addGap(58, 58, 58)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addContainerGap())
         );
 
         jPanel2.add(jp2);
@@ -929,6 +946,23 @@ public class menuUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPsklhActionPerformed
 
+    public void showComboBoxNama(){
+        Connection.koneksi();
+        String sql = "SELECT * FROM mhs_baru";
+        try{
+            mhs.clear();
+            Connection.rs = Connection.stmt.executeQuery(sql);
+            while(Connection.rs.next()){
+                mhs.add(new MahasiswaBaru(Connection.rs.getInt("id_pendaftaran"), Connection.rs.getInt("id_fakultas"), Connection.rs.getInt("id_prodi"), Connection.rs.getInt("nisn"), Connection.rs.getString("nama"), Connection.rs.getString("jk"), Connection.rs.getDate("tgl_lahir"), Connection.rs.getString("kota"), Connection.rs.getString("alamat")));
+           }
+            cmbNama.setModel(new DefaultComboBoxModel(mhs.toArray()));
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
     private void btnSimpanPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanPendActionPerformed
         // TODO add your handling code here:
         String namasklh = txtNsklh.getText();
@@ -955,6 +989,47 @@ public class menuUtama extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSimpanPendActionPerformed
 
+    public void showTableDataPend()
+    {
+        Connection.koneksi();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No.");
+        model.addColumn("Nama");
+        model.addColumn("Sekolah");
+        model.addColumn("Jurusan");
+        model.addColumn("Kota");
+        model.addColumn("Provinsi");
+        model.addColumn("nilai_skhun");
+        String sql = "SELECT * FROM pendidikan_akhir a JOIN mhs_baru b ON a.id_pendaftaran = b.id_pendaftaran";
+        try{
+            mhs.clear();
+            Connection.rs = Connection.stmt.executeQuery(sql);
+            while(Connection.rs.next())
+            {
+                mhs.add(new MahasiswaBaru(Connection.rs.getInt("id_pendaftaran"), Connection.rs.getInt("id_fakultas"), 
+                Connection.rs.getInt("id_prodi"), Connection.rs.getInt("nisn"), Connection.rs.getString("nama"), 
+                        Connection.rs.getString("jk"), Connection.rs.getDate("tgl_lahir"), Connection.rs.getString("kota"), Connection.rs.getString("alamat")));
+            }
+            
+           int i = 1;
+           for(MahasiswaBaru b: mhs)
+           {
+               int idf = b.getId_fakultas();
+               String namaFakultas = getDataFakultas(fakultas, idf);
+               int idp = b.getId_prodi();
+               String namaProdi = getDataProdi(prodi, idp);
+               model.addRow(new Object[] {
+                   i,namaFakultas, namaProdi, b.getNisn(), b.getNama(), b.getJk(), b.getTgl_lahir(), b.getKota(), b.getAlamat()
+               });
+               i++;
+           }
+           Connection.rs.close();
+           tblmhsbaru.setModel(model);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
     private void tblmhsbaruMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblmhsbaruMouseClicked
         // TODO add your handling code here:
         getData();
@@ -1017,6 +1092,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JButton btnSimpanPend;
     private javax.swing.JComboBox<String> cmbFak;
     private javax.swing.JComboBox<String> cmbJsklh;
+    private javax.swing.JComboBox<String> cmbNama;
     private javax.swing.JComboBox<String> cmbProdi;
     private javax.swing.JComboBox<String> cmbSklh;
     private javax.swing.JPanel form;
@@ -1029,6 +1105,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

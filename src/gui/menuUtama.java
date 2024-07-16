@@ -40,6 +40,7 @@ public class menuUtama extends javax.swing.JFrame {
         showComboBoxSekolah();
         showComboBoxJurusanSklh();
         showComboBoxNama();
+//        getDataProdi();
         showTableData();
         showTableDataPend();
     }
@@ -744,6 +745,19 @@ public class menuUtama extends javax.swing.JFrame {
         }
     }
     
+    public void getDataProdi(){
+        String sql = "SELECT * FROM prodi";
+        try {
+            Connection.rs = Connection.stmt.executeQuery(sql);
+            while(Connection.rs.next()){
+                prodi.add(new Prodi(Connection.rs.getInt("id_prodi"), Connection.rs.getString("nama_prodi"), Connection.rs.getInt("id_fakultas")));
+            }
+            cmbProdi.setModel(new DefaultComboBoxModel(prodi.toArray()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void showComboBoxSekolah(){
         cmbSklh.removeAllItems();
         cmbSklh.addItem("SMA");
@@ -789,6 +803,7 @@ public class menuUtama extends javax.swing.JFrame {
         Connection.koneksi();
         String sql = "UPDATE mhs_baru SET id_fakultas=?, id_prodi=?, nisn=?, nama=?, jk=?, tgl_lahir=?, kota=?, alamat=? WHERE id_pendaftaran=?";
         try{
+//            getDataProdi();
             PreparedStatement ps = Connection.conn.prepareStatement(sql);
             ps.setString(4, nama);
             ps.setInt(3, nisn);
@@ -865,6 +880,7 @@ public class menuUtama extends javax.swing.JFrame {
         Connection.koneksi();
         String sql = "INSERT INTO mhs_baru(id_fakultas, id_prodi, nisn, nama, jk, tgl_lahir, kota, alamat) VALUES (?,?,?,?,?,?,?,?)";
         try{
+            getDataProdi();
             PreparedStatement ps = Connection.conn.prepareStatement(sql);
             ps.setString(4, nama);
             ps.setInt(3, nisn);
@@ -907,8 +923,9 @@ public class menuUtama extends javax.swing.JFrame {
         model.addColumn("Tanggal Lahir");
         model.addColumn("Kota");
         model.addColumn("Alamat");
-        String sql = "SELECT * FROM mhs_baru mb JOIN fakultas f ON mb.id_fakultas = f.id_fakultas JOIN prodi p on mb.id_prodi = p.id_prodi";
+        String sql = "SELECT * FROM mhs_baru mb JOIN fakultas f ON mb.id_fakultas = f.id_fakultas JOIN prodi p ON mb.id_prodi = p.id_prodi";
         try{
+            getDataProdi();
             mhs.clear();
             Connection.rs = Connection.stmt.executeQuery(sql);
             while(Connection.rs.next())
@@ -925,6 +942,8 @@ public class menuUtama extends javax.swing.JFrame {
                String namaFakultas = getDataFakultas(fakultas, idf);
                int idp = b.getId_prodi();
                String namaProdi = getDataProdi(prodi, idp);
+               System.out.println(idp);
+               System.out.println(namaProdi);
                model.addRow(new Object[] {
                    i,namaFakultas, namaProdi, b.getNisn(), b.getNama(), b.getJk(), b.getTgl_lahir(), b.getKota(), b.getAlamat()
                });
@@ -964,6 +983,7 @@ public class menuUtama extends javax.swing.JFrame {
     public String getDataProdi(List<Prodi> p, int id){
         for (Prodi _p : p){
             if(_p.getId_prodi()== id){
+                System.out.println(_p.getNama_prodi());
                 return _p.getNama_prodi();
             }
         }
@@ -971,7 +991,7 @@ public class menuUtama extends javax.swing.JFrame {
     }
     
     public int getProdiIndex(List<Prodi> authors, int id)
-    {
+    { 
         int targetIndex = -1;
         
         for(int i = 0; i < authors.size(); i++)

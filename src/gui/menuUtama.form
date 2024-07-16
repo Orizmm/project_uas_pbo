@@ -759,7 +759,7 @@
             <Component class="javax.swing.JLabel" name="btnExitPend">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/asset/Emergency Exit.png"/>
+                  <Image iconType="3" name="/asset/Emergency Exit1.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -902,6 +902,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Kosongkan"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKosongPendActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cmbSklh">
               <Properties>

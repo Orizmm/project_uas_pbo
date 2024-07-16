@@ -455,7 +455,7 @@ public class menuUtama extends javax.swing.JFrame {
         jp2.setBackground(new java.awt.Color(0, 43, 91));
         jp2.setPreferredSize(new java.awt.Dimension(857, 675));
 
-        btnExitPend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Emergency Exit.png"))); // NOI18N
+        btnExitPend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Emergency Exit1.png"))); // NOI18N
         btnExitPend.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnExitPendMouseClicked(evt);
@@ -540,6 +540,11 @@ public class menuUtama extends javax.swing.JFrame {
 
         btnKosongPend.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         btnKosongPend.setText("Kosongkan");
+        btnKosongPend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKosongPendActionPerformed(evt);
+            }
+        });
 
         cmbSklh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbSklh.addActionListener(new java.awt.event.ActionListener() {
@@ -1051,7 +1056,6 @@ public class menuUtama extends javax.swing.JFrame {
             
             ps.execute();
             Connection.stmt.close();
-           //kosongkan();
             showTableDataPend();
         }catch(Exception e){
             e.printStackTrace();
@@ -1242,6 +1246,24 @@ public class menuUtama extends javax.swing.JFrame {
         this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_formMouseDragged
 
+    private void btnKosongPendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKosongPendActionPerformed
+        // TODO add your handling code here:
+        kosongkanPend();
+    }//GEN-LAST:event_btnKosongPendActionPerformed
+
+    private void kosongkanPend(){
+        cmbNama.setEnabled(false);
+        cmbSklh.setEnabled(false);
+        txtNsklh.setText("");
+        cmbJsklh.setEnabled(false);
+        txtKsklh.setText("");
+        txtPsklh.setText("");
+        txtSKHUN.setText("");
+        showComboBoxJurusanSklh();
+        showComboBoxSekolah();
+        showComboBoxNama();
+        showComboBoxFak();
+    }
     /**
      * @param args the command line arguments
      */

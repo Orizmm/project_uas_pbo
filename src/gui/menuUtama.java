@@ -956,8 +956,6 @@ public class menuUtama extends javax.swing.JFrame {
                String namaFakultas = getDataFakultas(fakultas, idf);
                int idp = b.getId_prodi();
                String namaProdi = getDataProdi(prodi, idp);
-               System.out.println(idp);
-               System.out.println(namaProdi);
                model.addRow(new Object[] {
                    i,namaFakultas, namaProdi, b.getNisn(), b.getNama(), b.getJk(), b.getTgl_lahir(), b.getKota(), b.getAlamat()
                });
@@ -997,7 +995,6 @@ public class menuUtama extends javax.swing.JFrame {
     public String getDataProdi(List<Prodi> p, int id){
         for (Prodi _p : p){
             if(_p.getId_prodi()== id){
-                System.out.println(_p.getNama_prodi());
                 return _p.getNama_prodi();
             }
         }
@@ -1261,17 +1258,23 @@ public class menuUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKosongPendActionPerformed
 
     private void kosongkanPend(){
-        cmbNama.setEnabled(false);
-        cmbSklh.setEnabled(false);
-        txtNsklh.setText("");
-        cmbJsklh.setEnabled(false);
-        txtKsklh.setText("");
-        txtPsklh.setText("");
-        txtSKHUN.setText("");
-        showComboBoxJurusanSklh();
-        showComboBoxSekolah();
-        showComboBoxNama();
-        showComboBoxFak();
+        cmbNama.setSelectedIndex(-1); // // Mengosongkan pilihan pada combo box Nama
+        cmbSklh.setSelectedIndex(-1); 
+        txtNsklh.setText("");         
+        cmbJsklh.setSelectedIndex(-1); 
+        txtKsklh.setText("");         
+        txtPsklh.setText("");         
+        txtSKHUN.setText("");         
+
+        showComboBoxJurusanSklh();    
+        showComboBoxSekolah();        
+        showComboBoxNama();           
+        showComboBoxFak();            
+
+         // Mengaktifkan kembali combo box jika sebelumnya dinonaktifkan
+        cmbNama.setEnabled(true);
+        cmbSklh.setEnabled(true);
+        cmbJsklh.setEnabled(true);
     }
     /**
      * @param args the command line arguments

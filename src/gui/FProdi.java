@@ -220,10 +220,10 @@ public class FProdi extends javax.swing.JFrame {
         int id = Integer.parseInt(txtId.getText());
         
         Connection.koneksi();
-        String sql = "delete prodi where id = ?";
+        String sql = "delete from prodi where id_prodi = ?";
         try{
             PreparedStatement ps = Connection.conn.prepareStatement(sql);
-            
+            ps.setInt(1, id);
             ps.execute();
             Connection.stmt.close();
             showTableData();
